@@ -2,6 +2,9 @@
 
 Aplikasi Manajemen Tugas (**Task Tracker**) untuk mengelola satu tabel (`tasks`) dengan fitur **CRUD (Create, Read, Update, Delete)** menggunakan **Express.js**, **MySQL (`mysql2`)**, **EJS**, dan **Tailwind CSS** dengan arsitektur **MVC (Model-View-Controller)**.
 
+NIM    :255150719111001
+NAMA   :Reza Abdul Latif
+
 ## Tampilan Aplikasi
 
 <img width="1533" height="776" alt="Tampilan Dashboard Task Tracker" src="https://github.com/user-attachments/assets/cd972b20-63fd-480f-9c79-d5ffcab9ab7f" />
