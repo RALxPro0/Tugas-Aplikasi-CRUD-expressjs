@@ -1,5 +1,5 @@
-<img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/ca8fe9e9-f581-4b90-9a2e-b2c29991cab0" />
-<img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/bef96dbd-93d7-4e73-b03c-f0966bba2428" />
+<img width="1533" height="776" alt="image" src="https://github.com/user-attachments/assets/cd972b20-63fd-480f-9c79-d5ffcab9ab7f" />
 
+<img width="1535" height="783" alt="image" src="https://github.com/user-attachments/assets/9f981c01-ebf7-494b-bb87-a3ca89641815" />
 
 # Tugas-Aplikasi-CRUD-expressjs
