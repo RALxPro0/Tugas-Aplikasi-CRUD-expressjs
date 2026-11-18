@@ -6,6 +6,9 @@ NIM    :255150719111001 <br>
 NAMA   :Reza Abdul Latif
 
 ## Tampilan Aplikasi
+<img width="1535" height="783" alt="image" src="https://github.com/user-attachments/assets/f3e5c420-0bf5-4b52-ab18-3c11f3e906cf" />
+
+<img width="1535" height="780" alt="image" src="https://github.com/user-attachments/assets/44780d9e-6f05-4b6b-8246-5e93991de617" />
 
 <img width="1533" height="776" alt="Tampilan Dashboard Task Tracker" src="https://github.com/user-attachments/assets/cd972b20-63fd-480f-9c79-d5ffcab9ab7f" />
 
