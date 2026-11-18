@@ -1,0 +1,27 @@
+{
+  "name": "task-tracker-mvc",
+  "version": "1.0.0",
+  "description": "Aplikasi Manajemen Tugas (Task Tracker) CRUD menggunakan Express.js, EJS, Tailwind CSS, dan MySQL dengan arsitektur MVC",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "keywords": [
+    "express",
+    "crud",
+    "mvc",
+    "mysql",
+    "ejs",
+    "tailwind",
+    "task-tracker"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "mysql2": "^3.11.5"
+  }
+}
