@@ -561,22 +561,20 @@
                           Edit
                         </button>
 
-                        <form
-                          action="/tasks/<%= task.id %>/delete"
-                          method="POST"
-                          onsubmit="return confirm('Apakah Anda yakin ingin menghapus tugas ini?');"
-                          class="inline"
+                        <button
+                          type="button"
+                          onclick="openDeleteModal(this)"
+                          data-id="<%= task.id %>"
+                          data-title="<%= task.title %>"
+                          data-priority="<%= task.priority %>"
+                          data-status="<%= task.status %>"
+                          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200/80 transition cursor-pointer"
                         >
-                          <button
-                            type="submit"
-                            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200/80 transition cursor-pointer"
-                          >
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                            </svg>
-                            Hapus
-                          </button>
-                        </form>
+                          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                          Hapus
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -852,11 +850,60 @@
     </div>
   </div>
 
+  <!-- ==================== MODAL KONFIRMASI HAPUS TUGAS ==================== -->
+  <div
+    id="deleteModal"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4"
+  >
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
+      <div class="p-6 text-center">
+        <!-- Ikon Peringatan Hapus -->
+        <div class="w-14 h-14 rounded-2xl bg-rose-50 border border-rose-100 text-rose-600 flex items-center justify-center mx-auto mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+          </svg>
+        </div>
+
+        <h3 class="text-lg font-extrabold text-slate-900">Hapus Tugas Ini?</h3>
+        <p class="text-xs text-slate-500 mt-1">
+          Apakah Anda yakin ingin menghapus data tugas berikut secara permanen?
+        </p>
+
+        <!-- Kotak Detail Tugas yang Akan Dihapus -->
+        <div class="mt-4 p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-left">
+          <p id="delete_task_title" class="text-sm font-bold text-slate-900 truncate"></p>
+          <div class="flex items-center gap-2 mt-1.5">
+            <span id="delete_task_priority" class="px-2 py-0.5 rounded-md text-[11px] font-bold bg-slate-200 text-slate-700"></span>
+            <span id="delete_task_status" class="px-2 py-0.5 rounded-md text-[11px] font-bold bg-slate-200 text-slate-700"></span>
+          </div>
+        </div>
+      </div>
+
+      <form id="deleteForm" method="POST" class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex items-center justify-end gap-2.5">
+        <button
+          type="button"
+          onclick="closeDeleteModal()"
+          class="flex-1 py-2.5 px-4 rounded-xl border border-slate-300 bg-white text-slate-700 text-xs font-bold hover:bg-slate-100 transition cursor-pointer"
+        >
+          Batal
+        </button>
+        <button
+          type="submit"
+          class="flex-1 py-2.5 px-4 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-sm transition cursor-pointer"
+        >
+          Ya, Hapus Tugas
+        </button>
+      </form>
+    </div>
+  </div>
+
   <!-- Script Pengaturan Modal & Kalkulasi Durasi -->
   <script>
     const createModal = document.getElementById('createModal');
     const editModal = document.getElementById('editModal');
     const editForm = document.getElementById('editForm');
+    const deleteModal = document.getElementById('deleteModal');
+    const deleteForm = document.getElementById('deleteForm');
 
     function updateDurationPreview(startId, dueId, previewId) {
       const startVal = document.getElementById(startId).value;
@@ -929,17 +976,41 @@
       editModal.classList.remove('flex');
     }
 
+    function openDeleteModal(button) {
+      const id = button.getAttribute('data-id');
+      const title = button.getAttribute('data-title');
+      const priority = button.getAttribute('data-priority');
+      const status = button.getAttribute('data-status');
+
+      deleteForm.action = '/tasks/' + id + '/delete';
+      document.getElementById('delete_task_title').textContent = title;
+      document.getElementById('delete_task_priority').textContent = 'Prioritas: ' + priority;
+      document.getElementById('delete_task_status').textContent = 'Status: ' + status;
+
+      deleteModal.classList.remove('hidden');
+      deleteModal.classList.add('flex');
+    }
+
+    function closeDeleteModal() {
+      deleteModal.classList.add('hidden');
+      deleteModal.classList.remove('flex');
+    }
+
     createModal.addEventListener('click', function (e) {
       if (e.target === createModal) closeCreateModal();
     });
     editModal.addEventListener('click', function (e) {
       if (e.target === editModal) closeEditModal();
     });
+    deleteModal.addEventListener('click', function (e) {
+      if (e.target === deleteModal) closeDeleteModal();
+    });
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
         closeCreateModal();
         closeEditModal();
+        closeDeleteModal();
       }
     });
   </script>
